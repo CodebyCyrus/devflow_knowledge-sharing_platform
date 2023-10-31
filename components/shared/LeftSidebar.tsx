@@ -6,18 +6,27 @@ import { usePathname } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "../ui/button";
-import { SignedOut } from "@clerk/nextjs";
+import { SignedOut, useAuth } from "@clerk/nextjs";
 
 const LeftSidebar = () => {
+  const { userId } = useAuth();
   const pathname = usePathname();
 
   return (
-    <section className="background-light900_dark200 light-border mx-sm:hidden custom-scrollbar sticky left-0 top-0 flex h-screen flex-col justify-between overflow-y-auto border-r p-2 pt-32 shadow-light-300 dark:shadow-none lg:w-[266px]">
-      <div className="flex flex-1 flex-col gap-4">
+    <section className="background-light900_dark200 light-border custom-scrollbar sticky left-0 top-0 flex h-screen flex-col justify-between overflow-y-auto border-r p-6 pt-36 shadow-light-300 dark:shadow-none max-sm:hidden lg:w-[266px]">
+      <div className="flex flex-1 flex-col gap-4 ">
         {sidebarLinks.map((item) => {
           const isActive =
             (pathname.includes(item.route) && item.route.length > 1) ||
             pathname === item.route;
+
+          if (item.route === "/profile") {
+            if (userId) {
+              item.route = `${item.route}/${userId}`;
+            } else {
+              return null;
+            }
+          }
 
           return (
             <Link
@@ -26,7 +35,7 @@ const LeftSidebar = () => {
               className={`${
                 isActive
                   ? "primary-gradient text-dark300_light900  rounded-lg "
-                  : "text-dark300_light900"
+                  : "text-dark300_light900 "
               }m-0 flex items-center justify-start gap-4 bg-transparent p-4 `}
             >
               <Image
@@ -38,8 +47,8 @@ const LeftSidebar = () => {
               />
               <p
                 className={`${
-                  isActive ? "base-bold " : "base-medium "
-                }text-dark300_light900 max-lg:hidden`}
+                  isActive ? "base-bold invert-colors " : "base-medium "
+                }text-dark300_light900  text-base max-lg:hidden `}
               >
                 {item.label}
               </p>
