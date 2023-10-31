@@ -2,12 +2,16 @@ import Filter from "@/components/shared/Filter";
 import NoResult from "@/components/shared/NoResult";
 import LocalSearchbar from "@/components/shared/search/LocalSearchbar";
 
-import { UserFilters } from "@/constants/filters";
+import { TagFilters } from "@/constants/filters";
 import { getAllTags } from "@/lib/actions/tag.actions";
+import { SearchParamsProps } from "@/types";
 import Link from "next/link";
 
-const Page = async () => {
-  const result = await getAllTags({});
+const Page = async ({ searchParams }: SearchParamsProps) => {
+  const result = await getAllTags({
+    searchQuery: searchParams.q,
+    filter: searchParams.filter,
+  });
 
   return (
     <>
@@ -21,7 +25,7 @@ const Page = async () => {
           otherClasses="flex-1"
         />
         <Filter
-          filters={UserFilters}
+          filters={TagFilters}
           otherClasses="min-h-[56px] sm:min-w-[170px] "
         />
       </div>
@@ -42,7 +46,7 @@ const Page = async () => {
                 </div>
                 <p className="small-medium text-dark400_light500">
                   <span className="body-semibold primary-text-gradient mr-2.5">
-                    {tag.questions.length}+
+                    {tag.question?.length}+{" "}
                   </span>{" "}
                   Questions
                 </p>
@@ -51,7 +55,7 @@ const Page = async () => {
           ))
         ) : (
           <NoResult
-            title="No tags found"
+            title="No Tags found"
             description="It look like there are no tags found"
             link="/ask-question"
             linkTitle="Ask a question"
