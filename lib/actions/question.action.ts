@@ -289,6 +289,7 @@ export async function getRecommendedQuestions(params: RecommendedParams) {
     }, []);
 
     const distinctUserTagIds = [
+      // @ts-ignore
       ...new Set(userTags.map((tag: any) => tag._id)),
     ];
 
@@ -300,6 +301,7 @@ export async function getRecommendedQuestions(params: RecommendedParams) {
     };
 
     if (searchQuery) {
+      // @ts-ignore
       queryString.$or = [
         { title: { $regex: searchQuery, $options: "i" } },
         { content: { $regex: searchQuery, $options: "i" } },
