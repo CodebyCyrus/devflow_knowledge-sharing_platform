@@ -8,6 +8,7 @@ import Interaction from "@/database/interaction.model";
 export async function viewQuestion(params: ViewQuestionParams) {
   try {
     await connectToDatabase();
+
     const { questionId, userId } = params;
 
     await Question.findByIdAndUpdate(questionId, { $inc: { views: 1 } });
