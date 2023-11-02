@@ -1,4 +1,5 @@
-import { cn } from "@/lib/utils"
+/* eslint-disable no-undef */
+import { cn } from "@/lib/utils";
 
 function Skeleton({
   className,
@@ -9,7 +10,7 @@ function Skeleton({
       className={cn("animate-pulse rounded-md bg-muted", className)}
       {...props}
     />
-  )
+  );
 }
 
-export { Skeleton }
+export { Skeleton };
