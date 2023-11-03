@@ -21,7 +21,7 @@ export async function GetTopInteractedTags(params: GetTopInteractedTagsParams) {
     const user = await User.findById(userId);
     if (!user) throw new Error("User not found");
 
-    return [{ _id: "1", name: "tag1" }];
+    return [];
   } catch (error) {
     console.log(error);
     throw error;
@@ -81,7 +81,7 @@ export async function getQuestionsByTagId(params: GetQuestionsByTagIdParams) {
     const skipAmount = (page - 1) * pageSize;
 
     const tagFilter: FilterQuery<ITag> = { _id: tagId };
-    const tag = await Tag.findOne({ tagFilter }).populate({
+    const tag = await Tag.findOne(tagFilter).populate({
       path: "questions",
       model: Question,
       match: searchQuery

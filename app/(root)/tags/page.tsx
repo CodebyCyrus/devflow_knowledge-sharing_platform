@@ -46,9 +46,9 @@ const Page = async ({ searchParams }: SearchParamsProps) => {
                     {tag.name}
                   </p>
                 </div>
-                <p className="small-medium text-dark400_light500">
-                  <span className="body-semibold primary-text-gradient mr-2.5">
-                    {tag.question?.length}+{" "}
+                <p className="small-medium text-dark400_light500 mt-3.5">
+                  <span className=" body-semibold primary-text-gradient mr-2.5">
+                    {tag.questions?.length}+{" "}
                   </span>{" "}
                   Questions
                 </p>
@@ -58,7 +58,7 @@ const Page = async ({ searchParams }: SearchParamsProps) => {
         ) : (
           <NoResult
             title="No Tags found"
-            description="It look like there are no tags found"
+            description="It look like there are no tags found."
             link="/ask-question"
             linkTitle="Ask a question"
           />
